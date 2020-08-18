@@ -12,11 +12,10 @@
 #
 # $node_exporter       Manage prometheus node_exporter
 #
-class profile_prometheus {
+class profile_prometheus (
   Boolean $server        = false,
   Boolean $node_exporter = true,
-)
-{
+) {
   if $server {
     class { '::profile_prometheus::server': }
   }
