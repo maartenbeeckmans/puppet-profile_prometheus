@@ -19,8 +19,8 @@ class profile_prometheus::node_exporter (
     version    => $version,
   }
   if $manage_firewall_entry {
-    ::profile_base::firewall::entry { '200 allow node_exporter':
-      port => 9100,
+    firewall { '200 allow node_exporter':
+      dport => 9100,
     }
   }
 }
