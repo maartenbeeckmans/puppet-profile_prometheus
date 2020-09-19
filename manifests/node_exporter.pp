@@ -20,7 +20,8 @@ class profile_prometheus::node_exporter (
   }
   if $manage_firewall_entry {
     firewall { '200 allow node_exporter':
-      dport => 9100,
+      dport  => 9100,
+      action => 'accept',
     }
   }
 }
