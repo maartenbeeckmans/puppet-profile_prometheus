@@ -48,7 +48,7 @@ class profile_prometheus::server (
     alerts         => $alerts,
   }
   if $manage_firewall_entry {
-    ::profile::base::firewall::entry { '200 allow prometheus server':
+    ::profile_base::firewall::entry { '200 allow prometheus server':
       port => 9090,
     }
   }
