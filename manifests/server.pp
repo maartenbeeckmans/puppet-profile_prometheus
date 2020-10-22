@@ -48,7 +48,7 @@ class profile_prometheus::server (
     alerts         => $alerts,
   }
   if $manage_firewall_entry {
-    firewall { '200 allow prometheus server':
+    firewall { '09090 allow prometheus server':
       dport  => 9090,
       action => 'accept',
     }
