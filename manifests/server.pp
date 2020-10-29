@@ -11,7 +11,7 @@
 # $manage_firewall_server       Manage firewall for prometheus server
 #
 class profile_prometheus::server (
-  String  $version                = '2.20.1',
+  String  $version                = '2.22.0',
   Array   $scrape_configs         = [ {
     'job_name'        => 'prometheus',
     'scrape_interval' => '10s',
