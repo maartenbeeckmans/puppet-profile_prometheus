@@ -11,10 +11,10 @@
 # $manage_firewall_entry  Manage firewall entry
 #
 class profile_prometheus::node_exporter (
-  String         $version                = '1.0.1',
-  Boolean        $manage_firewall_entry  = true,
-  Arrays[String] $collectors_enable      = [],
-  Arrays[String] $collectors_disable     = ['buddyinfo', 'interrupts', 'logind', 'mountstats', 'ntp', 'processes', 'systemd', 'tcpstat',],
+  String         $version               = '1.0.1',
+  Boolean        $manage_firewall_entry = true,
+  Array[String] $collectors_enable      = [],
+  Array[String] $collectors_disable     = ['buddyinfo', 'interrupts', 'logind', 'mountstats', 'ntp', 'processes', 'systemd', 'tcpstat',],
 )
 {
   class { 'prometheus::node_exporter':
