@@ -16,7 +16,7 @@ class profile_prometheus::node_exporter (
   Array[String] $collectors_enable     = [],
   Array[String] $collectors_disable    = ['buddyinfo', 'interrupts', 'logind', 'mountstats', 'ntp', 'processes', 'systemd', 'tcpstat',],
   Boolean       $manage_sd_service     = false,
-  String        $sd_service_name       = 'prometheus',
+  String        $sd_service_name       = 'node_exporter',
   Array         $sd_service_tags       = ['metrics'],
 )
 {
