@@ -11,8 +11,12 @@
 # $manage_firewall_server       Manage firewall for prometheus server
 #
 class profile_prometheus::server (
-  String  $version                = '2.22.0',
-  Array   $scrape_configs         = [ {
+  String              $version               = '2.22.0',
+  Boolean             $manage_firewall_entry = true,
+  Boolean             $manage_sd_service     = false,
+  String              $sd_service_name       = 'prometheus',
+  Array               $sd_service_tags       = ['metrics'],
+  Array               $scrape_configs        = [ {
     'job_name'        => 'prometheus',
     'scrape_interval' => '10s',
     'static_configs'  => [ {
@@ -22,7 +26,7 @@ class profile_prometheus::server (
       },
     } ],
   } ],
-  Variant[Array,Hash] $alerts     = {
+  Variant[Array,Hash] $alerts                = {
     'groups' => [ {
       'name'  => 'alert.rules',
       'rules' => [ {
@@ -39,7 +43,6 @@ class profile_prometheus::server (
       } ],
     } ],
   },
-  Boolean $manage_firewall_entry  = true,
 )
 {
   class { 'prometheus::server':
@@ -51,6 +54,18 @@ class profile_prometheus::server (
     firewall { '09090 allow prometheus server':
       dport  => 9090,
       action => 'accept',
+    }
+  }
+  if $manage_sd_service {
+    consul::service { $sd_service_name:
+      checks => [
+        {
+          http     => 'http://localhost:9090',
+          interval => '10s'
+        }
+      ],
+      port   => 9090,
+      tags   => $sd_service_tags,
     }
   }
 }
