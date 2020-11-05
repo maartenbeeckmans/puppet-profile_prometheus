@@ -6,12 +6,12 @@ class profile_prometheus::alertmanager (
   Array   $sd_service_tags       = ['metrics'],
   String  $version               = '0.21.0',
   Hash    $route                 = {},
-  Array   $recievers             = [],
+  Array   $receivers             = [],
 ) {
   class { 'prometheus::alertmanager':
     version   => $version,
     route     => $route,
-    recievers => $recievers,
+    receivers => $receivers,
   }
   if $manage_firewall_entry {
     firewall { '09093 allow prometheus server':
