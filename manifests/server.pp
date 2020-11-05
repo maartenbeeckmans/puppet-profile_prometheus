@@ -43,7 +43,7 @@ class profile_prometheus::server (
       } ],
     } ],
   },
-  Array               $alertmanager_config   = [
+  Array               $alertmanagers_config   = [
     {
       'static_configs' => [{'targets' => ['localhost:9093']}],
     },
@@ -51,10 +51,10 @@ class profile_prometheus::server (
 )
 {
   class { 'prometheus::server':
-    version             => $version,
-    scrape_configs      => $scrape_configs,
-    alertmanager_config => $alertmanager_config,
-    alerts              => $alerts,
+    version              => $version,
+    scrape_configs       => $scrape_configs,
+    alertmanagers_config => $alertmanagers_config,
+    alerts               => $alerts,
   }
   if $manage_firewall_entry {
     firewall { '09090 allow prometheus server':
