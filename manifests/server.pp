@@ -43,12 +43,18 @@ class profile_prometheus::server (
       } ],
     } ],
   },
+  Array               $alertmanager_config   = [
+    {
+      'static_configs' => [{'targets' => ['localhost:9093']}],
+    },
+  ],
 )
 {
   class { 'prometheus::server':
-    version        => $version,
-    scrape_configs => $scrape_configs,
-    alerts         => $alerts,
+    version             => $version,
+    scrape_configs      => $scrape_configs,
+    alertmanager_config => $alertmanager_config,
+    alerts              => $alerts,
   }
   if $manage_firewall_entry {
     firewall { '09090 allow prometheus server':
@@ -67,5 +73,8 @@ class profile_prometheus::server (
       port   => 9090,
       tags   => $sd_service_tags,
     }
+  }
+  if $alertmanager_config != [] {
+    include profile_prometheus::alertmanager
   }
 }
