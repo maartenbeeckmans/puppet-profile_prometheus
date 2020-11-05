@@ -74,7 +74,4 @@ class profile_prometheus::server (
       tags   => $sd_service_tags,
     }
   }
-  if $alertmanager_config != [] {
-    include profile_prometheus::alertmanager
-  }
 }
