@@ -2,7 +2,7 @@
 #
 #
 class profile_prometheus::nginx_vts_exporter (
-  String        $version               = '0.10.7',
+  String        $version               = '0.10.3',
   Boolean       $manage_firewall_entry = true,
   Boolean       $manage_sd_service     = false,
   String        $sd_service_name       = 'nginx-vts-exporter',
