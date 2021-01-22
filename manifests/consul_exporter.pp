@@ -1,20 +1,21 @@
 #
 #
 #
-class profile_prometheus::nginx_vts_exporter (
+class profile_prometheus::consul_exporter (
+  String  $consul_server,
   String  $version,
   Boolean $manage_firewall_entry,
   Boolean $manage_sd_service,
   String  $sd_service_name,
   Array   $sd_service_tags,
 ) {
-  class { 'prometheus::nginx_vts_exporter':
+  class { 'prometheus::consul_exporter':
     version => $version,
   }
 
   if $manage_firewall_entry {
-    firewall { '09913 allow nginx_vts_exporter':
-      dport  => 9913,
+    firewall { '09107 allow consul_exporter':
+      dport  => 9107,
       action => 'accept',
     }
   }
@@ -23,11 +24,11 @@ class profile_prometheus::nginx_vts_exporter (
     consul::service { $sd_service_name:
       checks => [
         {
-          http     => 'http://localhost:9913',
+          http     => 'http://localhost:9107',
           interval => '10s'
         }
       ],
-      port   => 9913,
+      port   => 9107,
       tags   => $sd_service_tags,
     }
   }

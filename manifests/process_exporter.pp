@@ -1,24 +1,22 @@
 #
 #
 #
-class profile_prometheus::node_exporter (
+class profile_prometheus::process_exporter (
   String        $version,
-  Array[String] $collectors_enable,
-  Array[String] $collectors_disable,
+  Hash          $hash_watched_processes,
   Boolean       $manage_firewall_entry,
   Boolean       $manage_sd_service,
   String        $sd_service_name,
   Array         $sd_service_tags,
 ) {
-  class { 'prometheus::node_exporter':
-    version            => $version,
-    collectors_enable  => $collectors_enable,
-    collectors_disable => $collectors_disable,
+  class { 'prometheus::process_exporter':
+    hash_watched_processes => $hash_watched_processes,
+    version                => $version,
   }
 
   if $manage_firewall_entry {
-    firewall { '09100 allow node_exporter':
-      dport  => 9100,
+    firewall { '09256 allow process_exporter':
+      dport  => 9256,
       action => 'accept',
     }
   }
@@ -27,11 +25,11 @@ class profile_prometheus::node_exporter (
     consul::service { $sd_service_name:
       checks => [
         {
-          http     => 'http://localhost:9100',
+          http     => 'http://localhost:9256',
           interval => '10s'
         }
       ],
-      port   => 9100,
+      port   => 9256,
       tags   => $sd_service_tags,
     }
   }
