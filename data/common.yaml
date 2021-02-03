@@ -58,4 +58,13 @@ profile_prometheus::puppetdb_exporter::manage_firewall_entry: true
 profile_prometheus::puppetdb_exporter::manage_sd_service: true
 profile_prometheus::puppetdb_exporter::sd_service_name: 'puppetdb_exporter'
 profile_prometheus::puppetdb_exporter::sd_service_tags: ['metrics']
+
+# Redis exporter
+profile_prometheus::redis_exporter::ports:
+  - 6379
+profile_prometheus::redis_exporter::version: '1.9.0'
+profile_prometheus::redis_exporter::manage_firewall_entry: true
+profile_prometheus::redis_exporter::manage_sd_service: true
+profile_prometheus::redis_exporter::sd_service_name: 'redis_exporter'
+profile_prometheus::redis_exporter::sd_service_tags: ['metrics']
 ...
