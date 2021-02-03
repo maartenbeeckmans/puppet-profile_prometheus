@@ -18,8 +18,8 @@ class profile_prometheus::redis_exporter (
   }
 
   if $manage_firewall_entry {
-    firewall { '09187 allow postgres_exporter':
-      dport  => 9187,
+    firewall { '09121 allow redis_exporter':
+      dport  => 9121,
       action => 'accept',
     }
   }
