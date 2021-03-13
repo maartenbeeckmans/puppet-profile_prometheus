@@ -9,11 +9,23 @@ class profile_prometheus::node_exporter (
   Boolean       $manage_sd_service,
   String        $sd_service_name,
   Array         $sd_service_tags,
+  String        $extra_options,
 ) {
   class { 'prometheus::node_exporter':
     version            => $version,
     collectors_enable  => $collectors_enable,
     collectors_disable => $collectors_disable,
+    extra_options      => $extra_options,
+  }
+
+  # Make sure parent directores exist
+  exec { '/var/lib/node_exporter/textfile':
+    path    => $::path,
+    command => 'mkdir -p /var/lib/node_exporter/textfile',
+    unless  => 'test -d /var/lib/node_exporter/textfile',
+  }
+  -> file { '/var/lib/node_exporter/textfile':
+    ensure  => directory,
   }
 
   if $manage_firewall_entry {

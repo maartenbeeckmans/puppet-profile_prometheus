@@ -83,6 +83,7 @@ profile_prometheus::node_exporter::manage_firewall_entry: true
 profile_prometheus::node_exporter::manage_sd_service: true
 profile_prometheus::node_exporter::sd_service_name: 'node_exporter'
 profile_prometheus::node_exporter::sd_service_tags: ['metrics']
+profile_prometheus::node_exporter::extra_options: "--collector.textfile.directory=/var/lib/node_exporter/textfile"
 
 # Postfix exporter
 profile_prometheus::postfix_exporter::version: '0.2.0'
