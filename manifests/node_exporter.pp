@@ -6,10 +6,10 @@ class profile_prometheus::node_exporter (
   Array[String] $collectors_enable,
   Array[String] $collectors_disable,
   Boolean       $manage_firewall_entry,
-  Boolean       $manage_sd_service,
   String        $sd_service_name,
   Array         $sd_service_tags,
   String        $extra_options,
+  Boolean       $manage_sd_service      = lookup('manage_sd_service', Boolean, first, true),
 ) {
   class { 'prometheus::node_exporter':
     version            => $version,

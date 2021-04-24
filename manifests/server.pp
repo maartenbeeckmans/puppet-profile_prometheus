@@ -2,43 +2,14 @@
 #
 #
 class profile_prometheus::server (
-  String              $version               = '2.22.0',
-  Boolean             $manage_firewall_entry = true,
-  Boolean             $manage_sd_service     = false,
-  String              $sd_service_name       = 'prometheus',
-  Array               $sd_service_tags       = ['metrics'],
-  Array               $scrape_configs        = [ {
-    'job_name'        => 'prometheus',
-    'scrape_interval' => '10s',
-    'static_configs'  => [ {
-      'targets' => ['localhost:9090'],
-      'labels'  => {
-        'alias' => 'Prometheus'
-      },
-    } ],
-  } ],
-  Variant[Array,Hash] $alerts                = {
-    'groups' => [ {
-      'name'  => 'alert.rules',
-      'rules' => [ {
-        'alert'       => 'InstanceDown',
-        'expr'        => 'up == 0',
-        'for'         => '5m',
-        'labels'      => {
-          'severity' => 'page',
-        },
-        'annotations' => {
-            'summary'     => 'Instance {{ $labels.instance }} down',
-            'description' => '{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 5 minutes.',
-          }
-      } ],
-    } ],
-  },
-  Array               $alertmanagers_config   = [
-    {
-      'static_configs' => [{'targets' => ['localhost:9093']}],
-    },
-  ],
+  String              $version,
+  Boolean             $manage_firewall_entry,
+  String              $sd_service_name,
+  Array               $sd_service_tags,
+  Array               $scrape_configs,
+  Variant[Array,Hash] $alerts,
+  Array               $alertmanagers_config,
+  Boolean             $manage_sd_service      = lookup('manage_sd_service', Boolean, first, true),
 )
 {
   class { 'prometheus::server':

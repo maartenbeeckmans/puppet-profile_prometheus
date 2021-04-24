@@ -2,13 +2,13 @@
 #
 #
 class profile_prometheus::alertmanager (
-  Boolean $manage_sd_service,
   Boolean $manage_firewall_entry,
   String  $sd_service_name,
   Array   $sd_service_tags,
   String  $version,
   Hash    $route,
   Array   $receivers,
+  Boolean $manage_sd_service      = lookup('manage_sd_service', Boolean, first, true),
 ) {
   class { 'prometheus::alertmanager':
     version   => $version,

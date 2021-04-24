@@ -5,9 +5,9 @@ class profile_prometheus::redis_exporter (
   Array[Integer] $ports,
   String         $version,
   Boolean        $manage_firewall_entry,
-  Boolean        $manage_sd_service,
   String         $sd_service_name,
   Array          $sd_service_tags,
+  Boolean        $manage_sd_service      = lookup('manage_sd_service', Boolean, first, true),
 ) {
 
   $_addr = $ports.map |$items| { "redis://localhost:${items}" }

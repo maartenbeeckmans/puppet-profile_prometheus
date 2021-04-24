@@ -4,9 +4,9 @@
 class profile_prometheus::nginx_vts_exporter (
   String  $version,
   Boolean $manage_firewall_entry,
-  Boolean $manage_sd_service,
   String  $sd_service_name,
   Array   $sd_service_tags,
+  Boolean $manage_sd_service      = lookup('manage_sd_service', Boolean, first, true),
 ) {
   class { 'prometheus::nginx_vts_exporter':
     version => $version,

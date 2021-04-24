@@ -2,12 +2,12 @@
 #
 #
 class profile_prometheus::puppetdb_exporter (
-  String        $version,
-  String        $extra_options,
-  Boolean       $manage_firewall_entry,
-  Boolean       $manage_sd_service,
-  String        $sd_service_name,
-  Array         $sd_service_tags,
+  String  $version,
+  String  $extra_options,
+  Boolean $manage_firewall_entry,
+  String  $sd_service_name,
+  Array   $sd_service_tags,
+  Boolean $manage_sd_service      = lookup('manage_sd_service', Boolean, first, true),
 ) {
   class { 'prometheus::puppetdb_exporter':
     version       => $version,
