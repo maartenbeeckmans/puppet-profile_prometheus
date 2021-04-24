@@ -25,7 +25,7 @@ class profile_prometheus::puppetdb_exporter (
     consul::service { $sd_service_name:
       checks => [
         {
-          http     => 'http://localhost:9635',
+          http     => "http://${facts[networking][ip]}:9635",
           interval => '10s'
         }
       ],

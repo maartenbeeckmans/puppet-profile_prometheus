@@ -30,7 +30,7 @@ class profile_prometheus::postgres_exporter (
     consul::service { $sd_service_name:
       checks => [
         {
-          http     => 'http://localhost:9187',
+          http     => "http://${facts[networking][ip]}:9187",
           interval => '10s'
         }
       ],

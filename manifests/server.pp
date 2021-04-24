@@ -28,7 +28,7 @@ class profile_prometheus::server (
     consul::service { $sd_service_name:
       checks => [
         {
-          http     => 'http://localhost:9090',
+          http     => "http://${facts[networking][ip]}:9090",
           interval => '10s'
         }
       ],

@@ -23,7 +23,7 @@ class profile_prometheus::postfix_exporter (
     consul::service { $sd_service_name:
       checks => [
         {
-          http     => 'http://localhost:9154',
+          http     => "http://${facts[networking][ip]}:9154",
           interval => '10s'
         }
       ],

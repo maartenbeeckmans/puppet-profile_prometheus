@@ -23,7 +23,7 @@ class profile_prometheus::nginx_vts_exporter (
     consul::service { $sd_service_name:
       checks => [
         {
-          http     => 'http://localhost:9913',
+          http     => "http://${facts[networking][ip]}:9913",
           interval => '10s'
         }
       ],

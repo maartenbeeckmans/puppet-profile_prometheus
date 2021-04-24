@@ -24,7 +24,7 @@ class profile_prometheus::consul_exporter (
     consul::service { $sd_service_name:
       checks => [
         {
-          http     => 'http://localhost:9107',
+          http     => "http://${facts[networking][ip]}:9107",
           interval => '10s'
         }
       ],

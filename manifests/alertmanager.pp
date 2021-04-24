@@ -25,7 +25,7 @@ class profile_prometheus::alertmanager (
     consul::service { $sd_service_name:
       checks => [
         {
-          http     => 'http://localhost:9093',
+          http     => "http://${facts[networking][ip]}:9093",
           interval => '10s'
         }
       ],

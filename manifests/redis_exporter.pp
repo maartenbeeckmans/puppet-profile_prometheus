@@ -10,7 +10,7 @@ class profile_prometheus::redis_exporter (
   Boolean        $manage_sd_service      = lookup('manage_sd_service', Boolean, first, true),
 ) {
 
-  $_addr = $ports.map |$items| { "redis://localhost:${items}" }
+  $_addr = $ports.map |$items| { "redis://${facts[networking][ip]}:${items}" }
 
   class { 'prometheus::redis_exporter':
     addr    => $_addr,
@@ -28,7 +28,7 @@ class profile_prometheus::redis_exporter (
     consul::service { $sd_service_name:
       checks => [
         {
-          http     => 'http://localhost:9121',
+          http     => "http://${facts[networking][ip]}:9121",
           interval => '10s'
         }
       ],

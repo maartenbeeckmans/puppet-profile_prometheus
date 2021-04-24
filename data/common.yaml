@@ -32,7 +32,7 @@ profile_prometheus::server::scrape_configs:
     scrape_timeout: '10s'
     static_configs:
       - targets:
-          - 'localhost:9090'
+          - "%{facts.networking.ip}:9090"
         labels:
           alias: 'Prometheus'
 profile_prometheus::server::alerts:
@@ -50,10 +50,10 @@ profile_prometheus::server::alerts:
 profile_prometheus::server::alertmanagers_config:
   - static_configs:
     - targets:
-        - 'localhost:9093'
+        - "%{facts.networking.ip}:9093"
 
 # Consul exporter
-profile_prometheus::consul_exporter::consul_server: 'localhost:8500'
+profile_prometheus::consul_exporter::consul_server: "%{facts.networking.ip}:8500"
 profile_prometheus::consul_exporter::version: '0.7.1'
 profile_prometheus::consul_exporter::manage_firewall_entry: true
 profile_prometheus::consul_exporter::sd_service_name: 'consul_exporter'
