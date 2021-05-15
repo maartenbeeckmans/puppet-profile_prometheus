@@ -9,6 +9,7 @@ class profile_prometheus::server (
   Array               $scrape_configs,
   Variant[Array,Hash] $alerts,
   Array               $alertmanagers_config,
+  String              $storage_retention,
   Boolean             $manage_sd_service      = lookup('manage_sd_service', Boolean, first, true),
 )
 {
@@ -17,6 +18,7 @@ class profile_prometheus::server (
     scrape_configs       => $scrape_configs,
     alertmanagers_config => $alertmanagers_config,
     alerts               => $alerts,
+    storage_retention    => $storage_retention,
   }
   if $manage_firewall_entry {
     firewall { '09090 allow prometheus server':
