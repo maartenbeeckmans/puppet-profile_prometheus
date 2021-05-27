@@ -3,7 +3,7 @@
 profile_prometheus::alertmanager::manage_firewall_entry: true
 profile_prometheus::alertmanager::sd_service_name: 'alertmanager'
 profile_prometheus::alertmanager::sd_service_tags: ['metrics']
-profile_prometheus::alertmanager::version: '0.21.0'
+profile_prometheus::alertmanager::version: '0.22.0'
 profile_prometheus::alertmanager::route:
   group_by:
     - 'alertname'
@@ -22,7 +22,7 @@ profile_prometheus::alertmanager::receivers:
         username: 'username'
 
 # Server
-profile_prometheus::server::version: '2.26.0'
+profile_prometheus::server::version: '2.27.1'
 profile_prometheus::server::manage_firewall_entry: true
 profile_prometheus::server::sd_service_name: 'prometheus'
 profile_prometheus::server::sd_service_tags: ['metrics']
