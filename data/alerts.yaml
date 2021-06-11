@@ -36,6 +36,7 @@ profile_prometheus::server::scrape_configs:
           - "%{facts.networking.ip}:9090"
         labels:
           alias: 'Prometheus'
+
 profile_prometheus::server::alertmanagers_config:
   - static_configs:
     - targets:

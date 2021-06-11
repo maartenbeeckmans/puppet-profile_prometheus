@@ -6,5 +6,7 @@ defaults:
   data_hash: yaml_data
 
 hierarchy:
+  - name: 'alerts'
+    path: 'alerts.yaml'
   - name: 'common'
     path: 'common.yaml'
