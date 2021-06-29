@@ -366,14 +366,6 @@ profile_prometheus::server::alerts:
           annotations:
             summary: Host node overtemperature alarm (instance {{ $labels.instance }})
             description: "Physical node temperature alarm triggered\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
-        - alert: HostKernelVersionDeviations
-          expr: count(sum(label_replace(node_uname_info, "kernel", "$1", "release", "([0-9]+.[0-9]+.[0-9]+).*")) by (kernel)) > 1
-          for: 6h
-          labels:
-            severity: warning
-          annotations:
-            summary: Host kernel version deviations (instance {{ $labels.instance }})
-            description: "Different kernel versions are running\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
         - alert: HostOomKillDetected
           expr: increase(node_vmstat_oom_kill[1m]) > 0
           for: 0m
@@ -803,14 +795,14 @@ profile_prometheus::server::alerts:
           annotations:
             summary: Redis down (instance {{ $labels.instance }})
             description: "Redis instance is down\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
-        - alert: RedisMissingMaster
-          expr: (count(redis_instance_info{role="master"}) or vector(0)) < 1
-          for: 0m
-          labels:
-            severity: critical
-          annotations:
-            summary: Redis missing master (instance {{ $labels.instance }})
-            description: "Redis cluster has no node marked as master.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+            #        - alert: RedisMissingMaster
+            #          expr: (count(redis_instance_info{role="master"}) or vector(0)) < 1
+            #          for: 0m
+            #          labels:
+            #            severity: critical
+            #          annotations:
+            #            summary: Redis missing master (instance {{ $labels.instance }})
+            #            description: "Redis cluster has no node marked as master.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
         - alert: RedisTooManyMasters
           expr: count(redis_instance_info{role="master"}) > 1
           for: 0m
