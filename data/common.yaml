@@ -45,13 +45,13 @@ profile_prometheus::server::alertmanagers_config:
 profile_prometheus::consul_exporter::consul_server: "%{facts.networking.ip}:8500"
 profile_prometheus::consul_exporter::version: '0.7.1'
 profile_prometheus::consul_exporter::manage_firewall_entry: true
-profile_prometheus::consul_exporter::sd_service_name: 'consul_exporter'
+profile_prometheus::consul_exporter::sd_service_name: 'consul-exporter'
 profile_prometheus::consul_exporter::sd_service_tags: ['metrics']
 
 # Nginx Vts Exporter
 profile_prometheus::nginx_vts_exporter::version: '0.10.3'
 profile_prometheus::nginx_vts_exporter::manage_firewall_entry: true
-profile_prometheus::nginx_vts_exporter::sd_service_name: 'nginx_vts_exporter'
+profile_prometheus::nginx_vts_exporter::sd_service_name: 'nginx-vts-exporter'
 profile_prometheus::nginx_vts_exporter::sd_service_tags: ['metrics']
 
 # Node exporter
@@ -65,34 +65,34 @@ profile_prometheus::node_exporter::collectors_enable:
   - 'tcpstat'
 profile_prometheus::node_exporter::collectors_disable: []
 profile_prometheus::node_exporter::manage_firewall_entry: true
-profile_prometheus::node_exporter::sd_service_name: 'node_exporter'
+profile_prometheus::node_exporter::sd_service_name: 'node-exporter'
 profile_prometheus::node_exporter::sd_service_tags: ['metrics']
 profile_prometheus::node_exporter::extra_options: "--collector.textfile.directory=/var/lib/node_exporter/textfile"
 
 # Postfix exporter
 profile_prometheus::postfix_exporter::version: '0.2.0'
 profile_prometheus::postfix_exporter::manage_firewall_entry: true
-profile_prometheus::postfix_exporter::sd_service_name: 'postfix_exporter'
+profile_prometheus::postfix_exporter::sd_service_name: 'postfix-exporter'
 profile_prometheus::postfix_exporter::sd_service_tags: ['metrics']
 
 # Postgres exporter
 profile_prometheus::postgres_exporter::version: '0.5.1'
 profile_prometheus::postgres_exporter::manage_firewall_entry: true
-profile_prometheus::postgres_exporter::sd_service_name: 'postgres_exporter'
+profile_prometheus::postgres_exporter::sd_service_name: 'postgres-exporter'
 profile_prometheus::postgres_exporter::sd_service_tags: ['metrics']
 
 # Process exporter
 profile_prometheus::process_exporter::version: '0.6.0'
 profile_prometheus::process_exporter::hash_watched_processes: {}
 profile_prometheus::process_exporter::manage_firewall_entry: true
-profile_prometheus::process_exporter::sd_service_name: 'process_exporter'
+profile_prometheus::process_exporter::sd_service_name: 'process-exporter'
 profile_prometheus::process_exporter::sd_service_tags: ['metrics']
 
 # Puppetdb exporter
 profile_prometheus::puppetdb_exporter::version: '1.1.0'
 profile_prometheus::puppetdb_exporter::extra_options: "--cert-file=/etc/puppetlabs/puppet/ssl/certs/%{facts.networking.fqdn}.pem --key-file=/etc/puppetlabs/puppet/private_keys/%{facts.networking.fqdn}.pem --ca-file=/etc/puppetlabs/puppet/ssl/ca/%{facts.networking.fqdn}.pem --ssl-skip-verify"
 profile_prometheus::puppetdb_exporter::manage_firewall_entry: true
-profile_prometheus::puppetdb_exporter::sd_service_name: 'puppetdb_exporter'
+profile_prometheus::puppetdb_exporter::sd_service_name: 'puppetdb-exporter'
 profile_prometheus::puppetdb_exporter::sd_service_tags: ['metrics']
 
 # Redis exporter
@@ -100,6 +100,6 @@ profile_prometheus::redis_exporter::ports:
   - 6379
 profile_prometheus::redis_exporter::version: '1.9.0'
 profile_prometheus::redis_exporter::manage_firewall_entry: true
-profile_prometheus::redis_exporter::sd_service_name: 'redis_exporter'
+profile_prometheus::redis_exporter::sd_service_name: 'redis-exporter'
 profile_prometheus::redis_exporter::sd_service_tags: ['metrics']
 ...
