@@ -9,6 +9,7 @@ class profile_prometheus::node_exporter (
   String        $sd_service_name,
   Array         $sd_service_tags,
   String        $extra_options,
+  Array[String] $prometheus_servers     = lookup('prometheus_servers', Array, first, ['127.0.0.1']),
   Boolean       $manage_sd_service      = lookup('manage_sd_service', Boolean, first, true),
 ) {
   class { 'prometheus::node_exporter':
@@ -29,9 +30,15 @@ class profile_prometheus::node_exporter (
   }
 
   if $manage_firewall_entry {
-    firewall { '09100 allow node_exporter':
-      dport  => 9100,
-      action => 'accept',
+    ensure_resource( 'nftables::set', 'prometheus_servers', {
+      type     => 'ipv4_addr',
+      flags    => ['interval'],
+      elements => $prometheus_servers,
+    })
+
+    profile_base::firewall::rule { 'allow_node_exporter':
+      dport => 9100,
+      saddr => '@prometheus_servers',
     }
   }
 
